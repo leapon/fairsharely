@@ -21,7 +21,6 @@ $().ready(function() {
       console.log('account info received:', data);
       $('#account_info').text('Balance: $' + data.balance);
       $('#accountNumber').text(getDisplayAccountNumber(data.account_number));
-
       data.balance = 4000; // debug
       var status = 'good';
       if ((1 - data.balance/accountLimit) >= warnThreshold) {
@@ -31,6 +30,9 @@ $().ready(function() {
         status = 'error';
       }
       updateIndicator(status);
+      if (status == 'warn' || status == 'error') {
+        sendMessage(data.account_number, data.balance, status);
+      }
     });
   }
   nessieConnect();
@@ -80,6 +82,9 @@ function getDisplayAccountNumber(value) {
   }
   return result.join('');
 }
+function sendMessage(account_number, balance, status) {
+  console.log('message on:', account_number, balance, status);
+};
 </script>
 {% endblock %}
 
