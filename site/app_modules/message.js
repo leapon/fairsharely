@@ -26,7 +26,15 @@ module.exports = function(app) {
     var callback = arguments[3] || null;
     var parameter = tool.getReqParameter(req);
     debug('sendMessage:', parameter);
-    app.cb(null, [], {}, req, res, callback);
+    var message = parameter.message || '';
+    // Send an SMS text message
+    twilio_client.sendMessage({
+      to:'+12404262685', // Any number Twilio can deliver to, need verified number when trial!!!
+      from: app.setting.twilio.from, // A number you bought from Twilio and can use for outbound communication
+      body: 'Account message:' + message // body of the SMS message
+    }, function(error, responseData) { //this function is executed when a response is received from Twilio
+      app.cb(error, [], responseData, req, res, callback);
+    });
   };
 
   // page

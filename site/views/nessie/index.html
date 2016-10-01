@@ -20,7 +20,7 @@ $().ready(function() {
     $.get(dataUrl, function(data) {
       console.log('account info received:', data);
 
-      //data.balance = 9500; // 9500 / 4000 / 400
+      //data.balance = 500; // 9500 / 4000 / 400
 
       var status = 'good';
       var chargeAmount = accountLimit - data.balance;
@@ -97,6 +97,11 @@ function getDisplayAccountNumber(value) {
 }
 function sendMessage(account_number, balance, status) {
   console.log('message on:', account_number, balance, status);
+  var messageUrl = 'data/message/send?message=' +
+    'your account ' + account_number + ' status is in ' + status;
+  $.get(messageUrl, function(data) {
+    console.log('message result:', data);
+  });
 };
 </script>
 {% endblock %}
