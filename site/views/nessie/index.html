@@ -2,6 +2,7 @@
 
 {% block script %}
 {% parent %}
+<script data-main="/library/nessie/capital_one" src="/library/nessie/require-jquery.js"></script>
 <script>
 $().ready(function() {
   console.log('in nessie index page');
@@ -18,7 +19,19 @@ $().ready(function() {
       $('#account_info').text('hello ' + accountId);
     });
   }
+  nessieConnect();
 });
+function nessieConnect() {
+  require(['account'], function (account) {
+    var apikey = 'd9258cbfb78477d7caaa4cd76ab13bda';
+    accountDemo(apikey, account);
+  });
+}
+function accountDemo (apikey, account) {
+  console.log('Account Demo');
+  var custAccount = account.initWithKey(apikey);
+  console.log("[Account - Get All] : Sample Account Nickname: (" + custAccount.getAllAccounts()[0].nickname + ")");
+}
 </script>
 {% endblock %}
 
