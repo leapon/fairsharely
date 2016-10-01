@@ -1,0 +1,36 @@
+{% extends '../layout/layout.html' %}
+
+{% block content %}
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-8">
+      <h4 class="text-muted">Admin Page</h4>
+    </div>
+  </div>
+  <br/>
+  <div class="row">
+    <div class="col-md-4">
+      <p>System</p>
+      <hr/>
+      <ul>
+        <li><a href="/admin/module/audit">Audit</a></li>
+        <li><a href="/admin/module/resource">Resource</a></li>
+        <li><a href="/admin/module/role">Role</a></li>
+        <li><a href="/admin/module/sequence">Sequence</a></li>
+        <li><a href="/admin/module/user">User</a></li>
+      </ul>
+    </div>
+  </div>
+  <br/>
+  <div class="row">
+    <div class="col-md-4">
+      <p>Application</p>
+      <hr/>
+      <ul>
+        <li><a href="/admin/module/item">Item</a></li>
+        <li><a href="/admin/module/location">Location</a></li>
+      </ul>
+    </div>
+  </div>
+</div>
+{% endblock %}

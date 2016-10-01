@@ -1,0 +1,9 @@
+# start with debug on, with exclusion
+#DEBUG=*,-app*,-express* npm start
+#DEBUG=www,basedata,basepage,service npm start
+
+# use node-inspector for debugging
+#node-inspector&
+#DEBUG=www,basedata,basepage,service node --debug site/bin/www 
+
+DEBUG=*,-express* npm start

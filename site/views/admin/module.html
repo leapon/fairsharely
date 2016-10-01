@@ -1,0 +1,83 @@
+{% extends '../layout/layout.html' %}
+
+{% block script %}
+{% parent %}
+<script>
+  var app = app || {};
+  app['moduleName'] = "{{ page.moduleName }}";
+  app['moduleModel'] = {{ page.moduleModel|raw|json_encode }};
+  app['moduleOption'] = {{ page.moduleOption|raw|json_encode }};
+</script>
+<script src="/script/dist/module.js"></script>
+{% endblock %}
+
+{% block style %}
+{% parent %}
+<style>
+.panel-right {
+  border-left: solid 1px #f2f2f2;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-8">
+      <h4 class="text-muted">Module {{ page.moduleName|capitalize }}</h4>
+      <br/>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="panel-main col-md-12">
+      <div id="item_filter" class="pull-left">
+        <smart-form :name="name" :target="target" :columns="filter_columns" :config="filter_config"></smart-form>
+      </div>
+      <div class="pull-right">
+        <div class="btn-group">
+          <button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown">
+            Action <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu dropdown-menu-right">
+            <li>
+              <a href="/{{ page.moduleName }}/add" target="_blank" id="addItem" class="action-add">
+                <i class="glyphicon glyphicon-new-window"></i>
+                Add {{ page.moduleName }}
+              </a>
+            </li>
+            <li>
+              <a href="#" id="deleteItem" class="action-entry">
+                <i class="glyphicon glyphicon-remove"></i>
+                Delete {{ page.moduleName }}
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+      <div style="margin-top:40px;">
+        <div id="item_sheet">
+          <smart-sheet :name="name" :config="config" :columns="columns"></smart-sheet>
+        </div>
+        <br/>
+        <div id="item_info" class="hidden">
+          <smart-sheet-info :name="name"></smart-sheet-info>
+        </div>
+      </div>
+    </div>
+    <div class="panel-right col-md-3 hide">
+      <div class="toolbar-container pull-right">
+          <button class="btn btn-default" id="btnHidePanelRight">
+            <span class="glyphicon glyphicon-triangle-right"></span>
+          </button>
+      </div>
+      <br/>
+      <br/>
+      <div id="editItem">
+        <smart-form :name="name" :target="target" :columns="columns" :config="config"></smart-form>
+      </div>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

@@ -1,0 +1,60 @@
+{% extends '../layout/layout.html' %}
+
+{% block script %}
+{% parent %}
+<script>
+  var app = app || {};
+  app['moduleName'] = "{{ page.moduleName }}";
+  app['moduleModel'] = {{ page.moduleModel|raw|json_encode }};
+  app['moduleOption'] = {{ page.moduleOption|raw|json_encode }};
+</script>
+<!-- <script src="/script/dist/module.js"></script> -->
+{% endblock %}
+
+{% block style %}
+{% parent %}
+<style>
+.panel-right {
+  border-left: solid 1px #f2f2f2;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+
+  <div class="row">
+    <div class="col-md-8">
+      <h4 class="text-muted">Add {{ page.moduleName|upper }}</h4>
+    </div>
+  </div>
+
+  <div class="row">
+    <div class="col-md-6">
+      <form
+        name="new{{ page.moduleName }}form"
+        id="new{{ page.moduleName }}form"
+        class="form"
+        method="post"
+        enctype="multipart/form-data"
+        action="/{{ page.moduleName }}/add" >
+
+        {% for field in page.moduleModel %}
+          {% if !field.config.auto %}
+          <div class="form-group">
+            <label for="{{ loop.key }}">{{ loop.key }} ({{ field.type }})</label>
+            {{ page.webEngine.toInputTag(loop.key, '', field, 'form-control') }}
+          </div>
+          {% endif %}
+        {% endfor %}
+
+        <p class="submit">
+          <input type="submit" name="submit" id="submit" class="btn btn-primary" value="Add" />
+        </p>
+
+      </form>
+    </div>
+  </div>
+
+</div>
+{% endblock %}

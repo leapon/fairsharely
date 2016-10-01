@@ -1,0 +1,44 @@
+{% extends '../layout/layout.html' %}
+
+{% block script %}
+{% parent %}
+<script src="/script/dist/component.js"></script>
+{% endblock %}
+
+{% block style %}
+{% parent %}
+<style>
+.body-container .container-fluid {
+  margin-top: 20px;
+  margin-left: 20px;
+  margin-right: 20px;
+}
+.row {
+  margin-bottom: 30px;
+}
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-md-4" id="component1">
+      <p>Hello component</p>
+      <br/>
+      <hello :name="name"></hello>
+      <br/>
+      <hello name="Jason"></hello>
+    </div>
+    <div class="col-md-4" id="component2">
+      <p>Clock component</p>
+      <br/>
+      <clock></clock>
+      <br/>
+      <clock timezone="America/Los_Angeles"></clock>
+      <br/>
+      <clock timezone="Asia/Shanghai"></clock>
+      <br/>
+    </div>
+  </div>
+</div>
+{% endblock %}
