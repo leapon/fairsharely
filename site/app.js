@@ -85,12 +85,13 @@ function setup(cbSetup) {
     cookie: { maxAge: 120 * 60 * 1000 }  //session expires in 120 minutes
   }));
   app.server.use(express.static(path.join(__dirname, app.setting.public_name)));
-  
+
   app.mailer = null;
   if (app.setting.email) {
     app.mailer = new emailEngine.Engine(app.setting.email);
   }
 
+  /*
   // middleware for api token check
   var apiRoutes = express.Router();
   apiRoutes.use(function(req, res, next) {
@@ -100,6 +101,7 @@ function setup(cbSetup) {
       app.module.admin.data.checkAccess(req, res, next);
   });
   app.server.get('/data/*', apiRoutes);
+  */
 
   // setup database connection
   if (app.setting.database && app.setting.database.type) {

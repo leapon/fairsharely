@@ -11,7 +11,12 @@ $().ready(function() {
     refreshAccountInfo(data);
   });
   function refreshAccountInfo(data) {
-    $('#account_info').text('hello');
+    var accountId = '1234567890';
+    var dataUrl = '/data/nessie/account/' + accountId + '/info';
+    $.get(dataUrl, function(data) {
+      console.log('account info received:', data);
+      $('#account_info').text('hello ' + accountId);
+    });
   }
 });
 </script>
