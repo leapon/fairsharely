@@ -37,14 +37,15 @@
         <li class="{% if page.page_name == 'index' %}active{% endif %}">
           <a href="/">Home <span class="sr-only">(current)</span></a>
         </li>
-        <li class="{% if page.page_name == 'service' %}active{% endif %}">
+        <li class="{% if page.page_name == 'service' %}active{% endif %} hidden">
           <a href="/service">Service</a>
         </li>
         <li class="{% if page.page_name == 'about' %}active{% endif %}">
           <a href="/page/about">About</a>
         </li>
       </ul>
-      <ul class="nav navbar-nav navbar-right">
+
+      <ul class="nav navbar-nav navbar-right hidden">
         {% if page.user == null %}
         <a class="btn btn-login" href="/user/signup" role="button">
           <!-- <span class="glyphicon glyphicon-log-in"></span> -->
