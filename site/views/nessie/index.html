@@ -5,6 +5,14 @@
 <script>
 $().ready(function() {
   console.log('in nessie index page');
+  $('#btnGetAccountInfo').click(function() {
+    console.log('clicked account_info');
+    var data = {};
+    refreshAccountInfo(data);
+  });
+  function refreshAccountInfo(data) {
+    $('#account_info').text('hello');
+  }
 });
 </script>
 {% endblock %}
@@ -35,6 +43,16 @@ img.block-image {
       <p>Customer ID: {{ page.apidata.customer_id }}<p>
       <p>Account ID: {{ page.apidata.account_id }}<p>
       <p>Merchange ID: {{ page.apidata.merchant_id }}<p>
+    </div>
+  </div>
+  <hr/>
+  <div class="row">
+    <div class="col-md-6">
+      <h4 class="text-muted">Account Connect</h4>
+      <br/>
+      <button id="btnGetAccountInfo" class="btn btn-success">Get Account Info</button>
+      <br/><br/>
+      <div id="account_info"></div>
     </div>
   </div>
 </div>
