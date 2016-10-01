@@ -36,11 +36,38 @@ module.exports = function(app) {
     });
   };
 
+  block.page.index = function(req, res) {
+    debug('page.showService');
+    block.data.generateRandomNumber(req, res, null, function(error, docs, info) {
+      var page = app.getPage(req, {
+        module_name: module_name,
+        page_name: 'service',
+        title: 'service'
+      });
+      page.random_number = info.value;
+      res.render('service/index', { page:page });
+    });
+  };
+
+  block.page.showSplitResult = function(req, res) {
+    debug('page.showSplitResult');
+    block.data.generateRandomNumber(req, res, null, function(error, docs, info) {
+      var page = app.getPage(req, {
+        module_name: module_name,
+        page_name: 'service',
+        title: 'service'
+      });
+      page.random_number = info.value;
+      res.render('service/split_result', { page:page });
+    });
+  };
+
   // data route
   app.server.get('/data/service/generate_random_number', block.data.generateRandomNumber);
 
   // page route
   app.server.get('/service', block.page.index);
+  app.server.get('/service/split_result', block.page.showSplitResult);
 
   return block;
 };
