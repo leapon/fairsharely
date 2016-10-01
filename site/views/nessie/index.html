@@ -19,9 +19,10 @@ $().ready(function() {
     var dataUrl = 'http://api.reimaginebanking.com/accounts/' + accountId + '?key=d9258cbfb78477d7caaa4cd76ab13bda'
     $.get(dataUrl, function(data) {
       console.log('account info received:', data);
-      $('#account_info').text('Balance: $' + data.balance);
+      var chargeAmount = accountLimit - data.balance;
+      $('#account_info').html('Spent: $' + chargeAmount + '<br/>Limit: $' + accountLimit);
       $('#accountNumber').text(getDisplayAccountNumber(data.account_number));
-      data.balance = 4000; // debug
+      //data.balance = 4000; // debug
       var status = 'good';
       if ((1 - data.balance/accountLimit) >= warnThreshold) {
         status = 'warn';
@@ -137,7 +138,7 @@ img.block-image {
   <div class="row">
     <div class="col-md-6 well">
     <div id="status_contianer" style="float:right;min-height:250px;">
-      <p id="account_status_light" style="margin-right:20px;">Account Status</p>
+      <p id="account_status_light" style="margin-top:15px;margin-right:20px;">Account Status</p>
       <p>
         <i id="status_icon" class=""></i>
       </p>
