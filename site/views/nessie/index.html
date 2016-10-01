@@ -20,7 +20,7 @@ $().ready(function() {
     $.get(dataUrl, function(data) {
       console.log('account info received:', data);
       $('#account_info').text('Balance: $' + data.balance);
-      $('#accountNumber').text(data.account_number);
+      $('#accountNumber').text(getDisplayAccountNumber(data.account_number));
 
       data.balance = 4000; // debug
       var status = 'good';
@@ -69,6 +69,16 @@ function updateIndicator(status) {
       indicatorElement.addClass('glyphicon-remove-sign');
     break;
   }
+}
+function getDisplayAccountNumber(value) {
+  var result = [];
+  for (var i = 0; i < value.length; i++) {
+    if (i % 4 == 0) {
+      result.push(' ');
+    }
+    result.push(value[i]);
+  }
+  return result.join('');
 }
 </script>
 {% endblock %}
