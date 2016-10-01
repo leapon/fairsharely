@@ -20,7 +20,9 @@ $().ready(function() {
     $.get(dataUrl, function(data) {
       console.log('account info received:', data);
 
-      //data.balance = 500; // 9500 / 4000 / 400
+      //data.balance = 49000; // good
+      //data.balance = 21000; // warn
+      //data.balance = 500; // error
 
       var status = 'good';
       var chargeAmount = accountLimit - data.balance;
@@ -45,7 +47,9 @@ $().ready(function() {
         //'Limit: $' + accountLimit + '<br/>' +
         'Safe to spend till next level $' + levelAmountLeft + '<br/>');
       $('#accountNumber').text(getDisplayAccountNumber(data.account_number));
-
+      console.log('Spent: $' + chargeAmount);
+      console.log('Limit: $' + accountLimit);
+      console.log('Safe to spend till next level $' + levelAmountLeft);
     });
   }
   nessieConnect();
