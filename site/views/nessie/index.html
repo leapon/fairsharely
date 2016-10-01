@@ -12,11 +12,12 @@ $().ready(function() {
     refreshAccountInfo(data);
   });
   function refreshAccountInfo(data) {
-    var accountId = '1234567890';
-    var dataUrl = '/data/nessie/account/' + accountId + '/info';
+    var accountId = '57efd2e5267ebde464c4898a';
+    //var dataUrl = '/data/nessie/account/' + accountId + '/info';
+    var dataUrl = 'http://api.reimaginebanking.com/accounts/' + accountId + '?key=d9258cbfb78477d7caaa4cd76ab13bda'
     $.get(dataUrl, function(data) {
       console.log('account info received:', data);
-      $('#account_info').text('hello ' + accountId);
+      $('#account_info').text('Balance: $' + data.balance);
     });
   }
   nessieConnect();
@@ -32,6 +33,7 @@ function accountDemo (apikey, account) {
   console.log('Account Demo');
   var custAccount = account.initWithKey(apikey);
   console.log("[Account - Get All] : Sample Account Nickname: (" + custAccount.getAllAccounts()[0].nickname + ")");
+  // getAccountById
 }
 function customerDemo (apikey, customer) {
   var customerAccount = customer.initWithKey(apikey);
@@ -64,20 +66,24 @@ img.block-image {
     <div class="col-md-6">
       <h4 class="text-muted">API Data</h4>
       <br/>
-      <p>API Key: {{ page.apidata.key }}<p>
+      <!-- <p>API Key: {{ page.apidata.key }}<p> -->
       <p>Customer ID: {{ page.apidata.customer_id }}<p>
       <p>Account ID: {{ page.apidata.account_id }}<p>
-      <p>Merchange ID: {{ page.apidata.merchant_id }}<p>
+      <!-- <p>Merchange ID: {{ page.apidata.merchant_id }}<p> -->
     </div>
   </div>
   <hr/>
   <div class="row">
-    <div class="col-md-6">
+    <div class="col-md-10">
       <h4 class="text-muted">Account Connect</h4>
       <br/>
       <button id="btnGetAccountInfo" class="btn btn-success">Get Account Info</button>
       <br/><br/>
       <div id="account_info"></div>
+    </div>
+    <div class="col-md-2">
+      <p id="account_status_light">Account Status: <i class=""></i></p>
+      <br/><br/>
     </div>
   </div>
 </div>
