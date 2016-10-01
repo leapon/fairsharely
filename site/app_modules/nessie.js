@@ -28,6 +28,9 @@ module.exports = function(app) {
     var parameter = tool.getReqParameter(req);
     debug('getAccountInfo:', parameter);
 
+    var apidata = block.apidata;
+    debug('apidata:', apidata);
+
     var error = null;
     var docs = [];
     var info = { message:'account info' };
