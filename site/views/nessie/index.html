@@ -12,31 +12,40 @@ $().ready(function() {
     refreshAccountInfo(data);
   });
   function refreshAccountInfo(data) {
-    var accountId = '57efd2e5267ebde464c4898a';
-    var accountLimit = 10000;
+    var accountId = '57efe975267ebde464c4899e'; //'57efd2e5267ebde464c4898a';
+    var accountLimit = 50000;
     var warnThreshold = 0.5;
     var errorThreshold = 0.9;
     var dataUrl = 'http://api.reimaginebanking.com/accounts/' + accountId + '?key=d9258cbfb78477d7caaa4cd76ab13bda'
     $.get(dataUrl, function(data) {
       console.log('account info received:', data);
 
-      data.balance = 9500; // 9500 / 4000 / 400
-
-      var chargeAmount = accountLimit - data.balance;
-      $('#account_info').html('Spent: $' + chargeAmount + '<br/>Limit: $' + accountLimit);
-      $('#accountNumber').text(getDisplayAccountNumber(data.account_number));
+      //data.balance = 9500; // 9500 / 4000 / 400
 
       var status = 'good';
+      var chargeAmount = accountLimit - data.balance;
+      var levelAmountLeft = accountLimit * warnThreshold - chargeAmount;
       if ((1 - data.balance/accountLimit) >= warnThreshold) {
         status = 'warn';
+        levelAmountLeft = accountLimit * errorThreshold - chargeAmount;
       }
       if ((1 - data.balance/accountLimit) >= errorThreshold) {
         status = 'error';
+        levelAmountLeft = accountLimit - chargeAmount;
       }
+
       updateIndicator(status);
       if (status == 'warn' || status == 'error') {
         sendMessage(data.account_number, data.balance, status);
       }
+
+      $('#account_info').html(
+        '<br/><br/>' +
+        //'Spent: $' + chargeAmount + '<br/>' +
+        //'Limit: $' + accountLimit + '<br/>' +
+        'Safe to spend till next level $' + levelAmountLeft + '<br/>');
+      $('#accountNumber').text(getDisplayAccountNumber(data.account_number));
+
     });
   }
   nessieConnect();
@@ -151,7 +160,7 @@ img.block-image {
       <br/>
       <button id="btnGetAccountInfo" class="btn btn-lg btn-success">Get Account Info</button>
       <br/><br/>
-      <div id="account_info" style="min-height:110px;font-size:1.6em;color:#000;"></div>
+      <div id="account_info" style="min-height:110px;font-size:1.6em;color:#000;padding-left:5px;"></div>
       <div class="account_number">
         <p id="accountNumber" class="account_number_text"></p>
       </div>

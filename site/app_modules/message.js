@@ -26,7 +26,7 @@ module.exports = function(app) {
     var callback = arguments[3] || null;
     var parameter = tool.getReqParameter(req);
     debug('sendMessage:', parameter);
-    app.cb(error, docs, info, req, res, callback);
+    app.cb(null, [], {}, req, res, callback);
   };
 
   // page
